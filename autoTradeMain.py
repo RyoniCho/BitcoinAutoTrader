@@ -99,7 +99,7 @@ def StartAutoTrade(coin):
             messageId=message.CheckMessageInLoop()
 
             if messageId==message.currentState:
-                CheckCurrentCondition(coin,message)
+                CheckCurrentCondition(coin,message,targetK)
             elif messageId==message.bestKUpdate:
                 targetK,kResult= bestK.get_bestK()
                 message.send_message("<<Best K Update>> :: \n{}".format(kResult))
@@ -124,9 +124,9 @@ def GetMinimumPrice(upbit,coin):
     return float(result[0]['market']['bid']['min_total'])
    
 
-def CheckCurrentCondition(coin,message):
+def CheckCurrentCondition(coin,message,targetK):
    
-    target_price = get_target_price(coin, 0.5)
+    target_price = get_target_price(coin, targetK)
     ma15 = get_ma15(coin)
     current_price = get_current_price(coin)
 
